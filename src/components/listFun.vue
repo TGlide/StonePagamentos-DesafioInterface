@@ -8,19 +8,19 @@
 				span.icon.is-small
 					i.fas.fa-filter
 				span Filtros
-			form(id="filter-form"	style="display: block" @submit="applyFilters") 
+			form(id="filter-form"	style="display: none" @submit="applyFilters") 
 				.field
 						label.label Nome
 						.control
-								input.input(type='text', id="nome" v-model="nome" placeholder='Nome' name="nome")
+								input.input(type='text', id="nomeFilt" v-model="nome" placeholder='Nome' name="nome")
 				.field
 						label.label Cargo
 						.control
-								input.input(type='text', id="cargo" v-model="cargo" placeholder='Cargo' name="cargo")
+								input.input(type='text', id="cargoFilt" v-model="cargo" placeholder='Cargo' name="cargo")
 				.field
 						label.label Idade
 						.control
-								input.input(type='number' min="0"	id="idade" v-model="idade" placeholder='Idade' name="idade")
+								input.input(type='number' min="0"	id="idadeFilt" v-model="idade" placeholder='Idade' name="idade")
 				
 				.field.is-grouped
 						.control

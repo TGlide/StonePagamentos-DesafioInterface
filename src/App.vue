@@ -1,20 +1,26 @@
 <template lang="pug">
 	#app
+
 		div#back
 			a.button.is-primary(v-if='state=="consulta"' @click="toggleState('index')")
 				span.icon
 					i.fas.fa-arrow-left
+
 		#index(v-if="state!='consulta'")
 			.columns(v-for="c in cardList")
 				card(v-bind:card="c" v-bind:key="c.id" @click.native="toggleState(c.state)")
+
 		#consultFunc(v-if="state=='consulta'")
 			fun_list
+
 		#funFormModal.modal
 			.modal-background(@click="closeModal()")
 			.modal-card.form-card
 				.modal-card-body
 					fun_form
 			button.modal-close.is-large(aria-label="close" @click="closeModal()")
+		
+		
 </template>
 
 <script>
@@ -49,7 +55,7 @@ export default {
   data: function() {
     return {
       cardList: cardList,
-      state: "consulta",
+      state: "index",
       funList: [],
       title: "Stone API"
     };
@@ -61,6 +67,7 @@ export default {
     },
     openModal: function() {
       document.getElementById("funFormModal").classList.add("is-active");
+      document.getElementById("funFormModal").style.opacity = 1;
     },
     closeModal: function() {
       document.getElementById("funFormModal").classList.remove("is-active");
@@ -95,7 +102,10 @@ a
 	text-align: left
 .form-card
 	border-radius: 5px
-	
+
+#funFormModal 
+	opacity: 0
+
 .fade-enter-active 
 	animation: appear 1s 
 @keyframes appear 

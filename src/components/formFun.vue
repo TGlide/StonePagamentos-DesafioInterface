@@ -7,15 +7,15 @@
 				.field
 						label.label Nome
 						.control
-								input.input(type='text', id="nomeFilt" v-model="nome" placeholder='Nome' name="nome")
+								input.input(type='text', id="nome" v-model="nome" placeholder='Nome' name="nome")
 				.field
 						label.label Cargo
 						.control
-								input.input(type='text', id="cargoFilt" v-model="cargo" placeholder='Cargo' name="cargo")
+								input.input(type='text', id="cargo" v-model="cargo" placeholder='Cargo' name="cargo")
 				.field
 						label.label Idade
 						.control
-								input.input(type='number' min="0"	id="idadeFilt" v-model="idade" placeholder='Idade' name="idade")
+								input.input(type='number' min="0"	id="idade" v-model="idade" placeholder='Idade' name="idade")
 				
 				.field.is-grouped
 						.control
@@ -23,6 +23,7 @@
 									span.icon.is-small
 										i.fas.fa-check
 									span Inserir
+						p.help.is-success(v-if="success") Funcionário inserido
 
 								
 
@@ -41,7 +42,8 @@ export default {
       errors: [],
       nome: null,
       idade: null,
-      cargo: null
+      cargo: null,
+      success: null
     };
   },
   methods: {
@@ -52,11 +54,7 @@ export default {
       document.getElementById("idade").classList.remove("is-danger");
       document.getElementById("cargo").classList.remove("is-danger");
 
-      var f = document.getElementById("fun-form");
-
-      this.nome = f.nome.value;
-      this.cargo = f.cargo.value;
-      this.idade = f.idade.value;
+      this.success = null;
 
       if (
         this.nome &&
@@ -70,6 +68,7 @@ export default {
 
         document.getElementById("submit").classList.add("is-loading");
 
+        var self = this;
         axios({
           method: "post",
           url: "http://localhost:5010/api/v1/funcionarios",
@@ -79,6 +78,7 @@ export default {
           .then(function(response) {
             console.log(response);
             document.getElementById("submit").classList.remove("is-loading");
+            self.success = true;
           })
           .catch(function(response) {
             console.log(response);
